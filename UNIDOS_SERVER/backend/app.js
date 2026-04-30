@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors()); // Allow frontend access
+// app.use(oas-tools) # ADD YAML FILE FOR CORRECT PARSING OF DATA
 
 const PORT = process.env.PORT || 3000;
 
@@ -25,6 +26,5 @@ app.get('/air-quality', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
+module.exports(app);
+
