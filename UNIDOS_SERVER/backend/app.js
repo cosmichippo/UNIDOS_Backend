@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 app.get('/air-quality', async (req, res) => {
     try {
         const city = req.params.city;
+        // this has to be better
         const apiKey = process.env.AQI_API_KEY;
         
         // Example using WAQI API structure
