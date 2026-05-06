@@ -4,6 +4,6 @@ const request = require('supertest');
 
 
 it('first test', async done=>{
-    const res = await request.get('/')
+    const res = await request.get('/air-quality');
     done();
 });
