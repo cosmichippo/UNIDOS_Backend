@@ -3,31 +3,39 @@ import L from "leaflet";
 import './HoverLegend.css'
 import { useMap } from "react-leaflet";
 
-function HoverLegend({state, position}) { 
+function HoverLegend({state, sensors, position}) { 
     const map = useMap();
-    // all that's happening here is HoverLegend is populating div with info from State
-    // this should be where the effect takes place, not the simpleMap, since you want things to be independent of each other. 
-    // since you would hypothetically be passing in the state.
-    // now, what this means is that 
-
+    // hoverLegend is onclick updates 
     const [airQuality, setAirQuality] = useState(null);
     const infoRef = useRef(null);
     //if (state == null) return;
-    // here we update using 
+    // instead of updating state from /air-quality endpoint, we will for now set it from the "state" variable
+    /*
     useEffect(() => {
-        
-        console.log("downloadEffect used");
-        if (!state?.properties.sensorId) return;
-        console.log("conditional logic reached");
+        if (!state?.properties?.sensorId) return;
         const id = state.properties.sensorId;
+        // maybe change to store not as a property but info that's stored in state?
         fetch(`http://localhost:3000/air-quality/${id}`)
         .then(response=> response.json())
         .then(data => {setAirQuality(data); console.log(data)})
         .catch(err => console.error(err));
 
     }, [state]);
-
+    */
+    
+    //setAirQuality(state)
     useEffect(()=>{
+
+    if (state != null && sensors != null){
+        const sensor = sensors.find((e)=> e.locationId === state);
+        console.log(sensor);
+        setAirQuality(sensor);
+    }
+    }, [state, sensors])
+    
+    
+    useEffect(()=> 
+        {
         console.log("update effect used")
         const info = L.control({ position: position });
         info.onAdd = function () {
