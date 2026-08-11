@@ -5,9 +5,9 @@ const URI = "http://localhost:3000/air-quality/"
 const URI_ALL = "http://localhost:3000/all"
 /**
  * 
- * UNIMPLEMENTED returns sensors that you have access to 
+ * returns sensors that you have access to 
  * @param {*} screenCoordinates
- * @returns UNIMPLEMENTED json array of all sensors you can see
+ * @returns json array of all sensors you can see
  */
 export async function getVisibleSensors(screenCoordinates){
     const promise = await fetch(URI_ALL)
