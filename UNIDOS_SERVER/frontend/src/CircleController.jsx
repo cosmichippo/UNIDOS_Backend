@@ -1,16 +1,14 @@
 import { useMap, useMapEvent, Circle } from "react-leaflet";
 import { useState } from "react";
-import { circle } from "leaflet";
-import {getSensorData} from "./api"
 // Ok i should write a function that colors the circle apropriately based on context
 // how will that be handled? can the circle 
-
 
 
 async function onclick(e){
     const id = e.target.options.sensorId;
     //const test = await getSensorData(id);
     e.target.options.setMyLayer(id);
+    console.log(id);
     // just set the 
     // onclick -> check sensor 
 }

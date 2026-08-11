@@ -9,8 +9,8 @@ import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persist
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 3, // Data is considered fresh for 5 seconds (no background re-fetch)
-      gcTime: 1000 * 60 // Keep unused cache in memory/storage for 1 minute.. lowkey look this up since every 5 min the data is invalid
+      staleTime: 1000 * 60 * 10, // Data is considered fresh for 5 seconds (no background re-fetch)
+      gcTime: 1000 * 60 * 10 // Keep unused cache in memory/storage for 10 minute.. lowkey look this up since every 5 min the data is invalid
     },
   },
 });
@@ -23,7 +23,12 @@ function App() {
   return (
     <div>
       <div className="Explanation">
-        <h4 className="test"></h4>
+        <h4 className="test">
+          Hi Guys..
+        </h4>
+        <p className="test">
+          ok lets talk about stuff. we gotta talk about like.. all the stuff!
+        </p>
       </div>
       <PersistQueryClientProvider client={queryClient} persistOptions={{persister}}>
         <SimpleMap/>
