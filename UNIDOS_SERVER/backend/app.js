@@ -1,7 +1,8 @@
-const env = require('dotenv').config();
-const express = require('express');
-const axios = require('axios');
-const cors = require('cors');
+import 'dotenv/config.js';
+import express from 'express';
+import axios from 'axios';
+import cors from 'cors';
+import { fbPagePost, fbGetTokenForID} from './fb.js';
 
 const app = express();
 
@@ -10,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors()); // Allow frontend access
 // app.use(oas-tools) # ADD YAML FILE FOR CORRECT PARSING OF DATA
 
-const getId = async (id)=>{
+const getId = async (id)=> {
 
     const ids = ["183709", "183644", "171892", "171872", "171871", "171897", "171882"];
     try {
@@ -34,9 +35,22 @@ const getId = async (id)=>{
     }
 };
 
-const getIdWrapper = async (id)=>{
-    await getId(id).then((res) => {return response.data;})
-};
+app.get("/fbEndpoint", async (req, res) => {
+    const id = process.env.FB_PAGE_ID // this won't change... but fahhh so ugly
+    const sys_token = process.env.FACEBOOK_SYSTEM_USER_TOKEN;
+    const message = "Hi";
+    try{
+        const val = await fbGetTokenForID(id, sys_token);
+        const currId = val.id;
+        const token = val.access_token;
+        const out = await fbPagePost(currId, message, token);
+        res.status(out.status).json(out.data);
+    }
+    catch{
+        console.error("didnt' work")
+        res.send(500);
+    }
+})
 
 app.get('/all', async (req, res) => {
     const ids = ["183709", "183644", "171892", "171872", "171871", "171897", "171882"];
@@ -44,8 +58,8 @@ app.get('/all', async (req, res) => {
     const val = await Promise.all(promises);
     return res.send(val);
 });
+
 // Route to get air quality by city
-//
 
 app.get('/air-quality/:id', async (req, res) => {
     // here we want to add to this by incorporating like storage which contains this info
@@ -62,16 +76,12 @@ app.get('/air-quality/:id', async (req, res) => {
         const response = await axios.get(`https://api.airgradient.com/public/api/v1/locations/${locationId}/measures/current`, 
            {params: headers}
         );
-        console.log(response);
-        if (response.status == 200) {
-            return res.json(response.data);
-        } else {
-            return res.status(response.status).json(response.data); 
-        }
-        //res.json(response.data);
+
+        return res.status(response.status).json(response.data);
     } catch (error) {
         console.log(error);
         return res.status(500).send();
     }
 });
-module.exports = {app};
+
+export {app};

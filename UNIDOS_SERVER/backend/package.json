@@ -4,10 +4,11 @@
   "description": "backend proxy server",
   "license": "ISC",
   "author": "juan morales",
-  "type": "commonjs",
+  "type": "module",
   "main": "app.js",
   "scripts": {
-    "test": "npm test"
+    "test": "jest",
+    "dev": "nodemon start.js"
   },
   "dependencies": {
     "axios": "^1.15.2",
@@ -15,6 +16,7 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "nodemon": "^3.1.14",
     "oas-tools": "^3.1.0"
   },
   "devDependencies": {
