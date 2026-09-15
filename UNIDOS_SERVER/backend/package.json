@@ -7,7 +7,7 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "test": "jest",
+    "test": "vitest ",
     "dev": "nodemon start.js"
   },
   "dependencies": {
@@ -21,6 +21,8 @@
   },
   "devDependencies": {
     "jest": "^30.3.0",
-    "supertest": "^7.2.2"
+    "msw": "^2.15.0",
+    "supertest": "^7.2.2",
+    "vitest": "^4.1.11"
   }
 }
