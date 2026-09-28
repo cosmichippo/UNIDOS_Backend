@@ -33,6 +33,38 @@ const fbGetTokenForID = async(id, token) => {
     });
     return val;
 }
+
+/**
+ * 
+ * @param {string} postId 
+ * @param {string} message 
+ * @param {string} token 
+ * @returns post response object
+ */
+// at some point, switch to meta business sdk
+// it has support for pages api
+// for today, just update post
+
+const fbUpdatePagePost = async(page_post_id, message, token) => {
+    const endpoint = `https://graph.facebook.com/v26.0/${page_post_id}`;
+    const headers = {
+        "access_token": token,
+    };
+    const val = await axios.post(endpoint, {"message":message}, {
+        params: headers,
+        timeout: 5000, // 5 seconds
+        transitional: {
+            // set to true if you prefer ETIMEDOUT over ECONNABORTED
+            clarifyTimeoutError: true,
+        }
+    }).catch((err) => {
+        console.error(err.status);
+        console.error(err);
+        return err
+    });
+    return val;
+}
+
 /**
  * 
  * @param {string} id 
@@ -136,4 +168,4 @@ const cronJob = async() => {
     //  }
 };
 
-export {fbPagePost, fbGetTokenForID, extractAverage, getId};
+export {fbPagePost, fbGetTokenForID, extractAverage, getId, fbUpdatePagePost};
