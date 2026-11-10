@@ -1,0 +1,27 @@
+{
+  "name": "cronjob",
+  "version": "1.0.0",
+  "description": "typescript service that periodically posts air quality data to a facebook page",
+  "license": "ISC",
+  "author": "Juan-Fernando Morales",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest",
+    "build": "rm -r ./build; npx tsc",
+    "start": "node --env-file=.env build/start.js"
+  },
+  "devDependencies": {
+    "@types/facebook-nodejs-business-sdk": "^24.0.0",
+    "@types/node": "^26.6.5",
+    "facebook-nodejs-business-sdk": "^24.0.1",
+    "msw": "^2.15.0",
+    "supertest": "^7.3.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.2",
+    "vitest": "^4.1.12"
+  },
+  "dependencies": {
+    "gulp": "^5.0.1"
+  }
+}

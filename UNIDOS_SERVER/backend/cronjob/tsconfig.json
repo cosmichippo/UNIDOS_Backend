@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "rootDir": "./cronsrc",
+    "outDir": "./built",
+    "allowJs": true,
+    "types":["node"]
+  },
+  "include": ["./cronsrc/**/*", "./cronsrc/tests",]
+}
